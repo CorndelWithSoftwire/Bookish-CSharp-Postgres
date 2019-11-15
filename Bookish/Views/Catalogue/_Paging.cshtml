@@ -1,0 +1,15 @@
+﻿@model Bookish.Web.Models.CatalogueViewModel
+
+<div>
+    @if (Model.Page > 1)
+    {
+        @Html.ActionLink("Previous Page", "Index", new {page = Model.Page - 1}, null)
+    }
+    
+    <b style="display:inline">Page @Model.Page of @Model.TotalPages</b>
+
+    @if (Model.Page < Model.TotalPages)
+    {
+        @Html.ActionLink("Next Page", "Index", new {page = Model.Page + 1}, null)
+    }
+</div>

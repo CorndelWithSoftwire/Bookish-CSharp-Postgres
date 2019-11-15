@@ -1,0 +1,29 @@
+﻿@model Bookish.Web.Models.CatalogueViewModel
+
+@Html.Partial("_Paging")
+
+<p />
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author(s)</th>
+            <th>ISBN</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@Html.ActionLink(book.Title, "Details", new { book.Id })</td>
+                <td>@book.Author</td>
+                <td>@book.ISBN</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p />
+
+@Html.Partial("_Paging")

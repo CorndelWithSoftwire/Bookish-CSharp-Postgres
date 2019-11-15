@@ -1,0 +1,48 @@
+﻿@using Bookish.Web.Helpers
+@model Bookish.DataAccess.Book
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(m => m.Author)</td>
+        <td>@Html.DisplayFor(m => m.Author)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.ISBN)</td>
+        <td>@Html.DisplayFor(m => m.ISBN)</td>
+    </tr>
+    <tr>
+        <td><label>Total copies</label></td>
+        <td>@Model.Copies.Count()</td>
+    </tr>
+    <tr>
+        <td><label>Available copies</label></td>
+        <td>@Model.Copies.Count(c => c.IsAvailable)</td>
+    </tr>
+</table>
+
+@if (Model.Copies.Any(c => !c.IsAvailable))
+{
+    <h3>Copies on loan</h3>
+
+    <ul>
+        @foreach (var copy in Model.Copies.Where(c => !c.IsAvailable))
+        {
+            <li>@Html.UserNameFromId(copy.Borrower) - due back @copy.DueDate.ToShortDateString()</li>
+        }
+    </ul>
+}
+
+<h3>Barcodes for all the copies</h3>
+
+<ul>
+    @foreach (var copy in Model.Copies)
+    {
+        <li>@copy.Id</li>
+    }
+</ul>

@@ -1,0 +1,14 @@
+﻿@using Bookish.Web.Models
+@model CatalogueViewModel
+
+@{
+    ViewBag.Title = "Catalogue";
+}
+
+<h2>Library Catalogue</h2>
+
+@Html.Partial("_Table")
+
+@Html.Partial("_Search", new BookSearchModel())
+
+<p>@Html.ActionLink("Create new book", "Create")</p>

@@ -27,7 +27,7 @@ namespace Bookish.DataAccess
       using (var db = CreateSqlConnection())
       {
         return db.Query<Book>(
-          "SELECT * FROM Books WHERE Title LIKE '%' + @searchText + '%' OR Author LIKE '%' + @searchText + '%'", 
+          "SELECT * FROM Books WHERE Title ~ @searchText OR Author ~ @searchText", 
           new {searchText});
       }
     }
@@ -46,7 +46,7 @@ namespace Bookish.DataAccess
     {
       using (var db = CreateSqlConnection())
       {
-        return db.Query<Copy, Book, Copy>(
+                return db.Query<Copy, Book, Copy>(
           "SELECT * FROM Copies JOIN Books ON Books.Id = Copies.BookId WHERE Borrower = @user",
           (copy, book) => 
           {
@@ -62,7 +62,7 @@ namespace Bookish.DataAccess
       using (var db = CreateSqlConnection())
       {
         int bookId = db.QuerySingle<int>(
-          "INSERT INTO Books(Title, Author, ISBN) VALUES(@Title, @Author, @ISBN); SELECT SCOPE_IDENTITY()", newBook);
+          "INSERT INTO Books(Title, Author, ISBN) VALUES(@Title, @Author, @ISBN); SELECT LASTVAL()", newBook);
 
         db.Execute("INSERT INTO Copies(BookId) VALUES(@BookId)", 
           Enumerable.Range(1, copies).Select(_ => new {bookId}));

@@ -1,0 +1,11 @@
+﻿@model Bookish.Web.Models.CatalogueSearchViewModel
+
+@{
+    ViewBag.Title = "Catalogue Search";
+}
+
+<h2>Library Catalogue: Search for @Model.SearchCriteria.SearchText</h2>
+
+@Html.Partial("_Table")
+
+@Html.Partial("_Search", Model.SearchCriteria)

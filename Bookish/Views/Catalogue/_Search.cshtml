@@ -1,0 +1,12 @@
+﻿@model Bookish.Web.Models.BookSearchModel
+
+<div>
+    @using (Html.BeginForm("Search", "Catalogue", FormMethod.Post))
+    {
+        <fieldset>
+            @Html.LabelFor(m => m.SearchText)
+            @Html.TextBoxFor(m => m.SearchText)
+            <input type="submit" value="Search" />
+        </fieldset>
+    }
+</div>
